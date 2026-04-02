@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing
+coverage/
+
+# Next.js (frontend)
+docflow-ai/.next/
+docflow-ai/out/
+
+# Production (common)
+build/
+dist/
+
+# Env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+docflow-ai/.env*
+docflow-backend/.env*
+
+# Misc
+.DS_Store
+*.pem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Python (backend)
+docflow-backend/__pycache__/
+docflow-backend/*.py[cod]
+docflow-backend/*$py.class
+docflow-backend/.Python
+docflow-backend/venv/
+docflow-backend/venv_docflow_test/
+docflow-backend/env/
+docflow-backend/build/
+docflow-backend/develop-eggs/
+docflow-backend/dist/
+docflow-backend/downloads/
+docflow-backend/eggs/
+docflow-backend/.eggs/
+docflow-backend/lib/
+docflow-backend/lib64/
+docflow-backend/parts/
+docflow-backend/sdist/
+docflow-backend/var/
+docflow-backend/wheels/
+docflow-backend/*.egg-info/
+docflow-backend/.installed.cfg
+docflow-backend/*.egg
+
+# OS generated files
+Thumbnail
+ehthumbs.db
+Desktop.ini

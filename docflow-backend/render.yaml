@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: docflow-backend
+    env: docker
+    plan: free # Change this to 'starter' or higher if required
+    rootDir: . # The root of the repository; adjust if docflow-backend is in a subfolder
+    branch: main
+    envVars:
+      - key: PORT
+        value: 5000
