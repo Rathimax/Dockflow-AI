@@ -46,8 +46,13 @@ function runLibreOffice(args, inputFile, outputExt, cb) {
     }
 
     if (err) {
-      console.error("[LibreOffice] Error:", stderr || err.message);
-      return cb(new Error(stderr || err.message));
+      console.error("[LibreOffice] FATAL ERROR:", err.message);
+      console.error("[LibreOffice] Stderr:", stderr);
+      const isNotFound = err.message.includes("not found") || err.message.includes("ENOENT");
+      const friendlyError = isNotFound 
+        ? "LibreOffice not found on the server. Please check your Dockerfile."
+        : `Conversion failed: ${stderr || err.message}`;
+      return cb(new Error(friendlyError));
     }
 
     // LibreOffice outputs "<basename>.<ext>"
@@ -74,8 +79,13 @@ function runPdf2Docx(inputFile, cb) {
 
   exec(script, { timeout: 120000 }, (err, stdout, stderr) => {
     if (err) {
-      console.error("[pdf2docx] Error:", stderr || err.message);
-      return cb(new Error(stderr || err.message));
+      console.error("[pdf2docx] FATAL ERROR:", err.message);
+      console.error("[pdf2docx] Stderr:", stderr);
+      const isModuleError = stderr.includes("ModuleNotFoundError") || err.message.includes("ModuleNotFoundError");
+      const friendlyError = isModuleError
+        ? "Python module 'pdf2docx' is not installed on the server. Check your build logs."
+        : `PDF to Word conversion failed: ${stderr || err.message}`;
+      return cb(new Error(friendlyError));
     }
 
     if (!fs.existsSync(outputFile)) {

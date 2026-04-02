@@ -132,19 +132,30 @@ export default function UploadBox({
     } catch (error) {
       clearTimeout(timeoutWarning);
       console.error("Conversion failed:", error);
-      let errorMessage = "Conversion failed. Please try again.";
-      if (axios.isAxiosError(error) && error.response) {
-        const data = error.response.data;
-        if (data instanceof Blob) {
-          try {
-            const text = await data.text();
-            const json = JSON.parse(text);
-            if (json.error) errorMessage = json.error;
-          } catch (e) {}
-        } else if (typeof data === "object" && data?.error) {
-          errorMessage = data.error;
-        } else if (typeof data === "string") {
-          errorMessage = data;
+      let errorMessage = "Something went wrong. Please try again.";
+      
+      if (axios.isAxiosError(error)) {
+        if (!error.response) {
+          // Network error or CORS issue (no response from server)
+          errorMessage = `Network Error: Cannot reach the backend at "${apiUrl}". Please verify your NEXT_PUBLIC_API_URL environment variable and check if the backend is running.`;
+        } else {
+          // Server responded with an error status
+          const data = error.response.data;
+          if (data instanceof Blob) {
+            try {
+              const text = await data.text();
+              const json = JSON.parse(text);
+              errorMessage = json.error || `Server Error (${error.response.status})`;
+            } catch (e) {
+              errorMessage = `Server Error (${error.response.status})`;
+            }
+          } else if (typeof data === "object" && data?.error) {
+            errorMessage = data.error;
+          } else if (typeof data === "string") {
+            errorMessage = data;
+          } else {
+            errorMessage = `Backend Error: ${error.response.statusText}`;
+          }
         }
       }
       setStatusMessage(errorMessage);

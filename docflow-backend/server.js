@@ -17,17 +17,10 @@ if (!fs.existsSync(TMP_DIR)) {
 }
 
 // --- Middleware ---
-const allowedOrigins = [
-  process.env.FRONTEND_URL || "http://localhost:3000"
-];
 app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: "*", // Allow all origins for the public API
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "Content-Disposition"]
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
