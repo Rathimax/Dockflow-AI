@@ -31,6 +31,42 @@ function hexToRgb(hex) {
   } : { r: 0, g: 0, b: 0 };
 }
 
+// --- LibreOffice / pdf2docx Helpers ---
+const getLibreOfficeCommand = () => {
+  if (process.platform === 'darwin') {
+    return '/Applications/LibreOffice.app/Contents/MacOS/soffice';
+  }
+  return 'libreoffice'; 
+};
+
+function runLibreOffice(args, inputFile, outputExt, cb) {
+  const loCommand = getLibreOfficeCommand();
+  const profileDir = `/tmp/lo_profile_${crypto.randomUUID()}`;
+  const cmd = `"${loCommand}" -env:UserInstallation=file://${profileDir} --headless ${args} --outdir "${OUTPUT_DIR}" "${inputFile}"`;
+  
+  exec(cmd, { timeout: 60000 }, (err, stdout, stderr) => {
+    if (fs.existsSync(profileDir)) fs.rmSync(profileDir, { recursive: true, force: true });
+    if (err) return cb(new Error(`LibreOffice error: ${stderr || err.message}`));
+    
+    const basename = path.basename(inputFile, path.extname(inputFile));
+    const outputFile = path.join(OUTPUT_DIR, `${basename}${outputExt}`);
+    if (!fs.existsSync(outputFile)) return cb(new Error("Output file not found"));
+    cb(null, outputFile);
+  });
+}
+
+function runPdf2Docx(inputFile, cb) {
+  const basename = path.basename(inputFile, path.extname(inputFile));
+  const outputFile = path.join(OUTPUT_DIR, `${basename}.docx`);
+  const script = `python3 -c "from pdf2docx import parse; parse('${inputFile}', '${outputFile}')"`;
+  
+  exec(script, { timeout: 120000 }, (err, stdout, stderr) => {
+    if (err) return cb(new Error(`pdf2docx error: ${stderr || err.message}`));
+    if (!fs.existsSync(outputFile)) return cb(new Error("Output file not found"));
+    cb(null, outputFile);
+  });
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // 1. PDF → Images (POST /api/pdf/load)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -407,6 +443,42 @@ router.post("/save", upload.single("file"), async (req, res) => {
   } catch (err) {
     console.error("[pdf-editor] Save error:", err);
     res.status(500).json({ error: "Failed to save PDF" });
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. Remove Watermark (POST /api/pdf/remove-watermark)
+// ─────────────────────────────────────────────────────────────────────────────
+router.post("/remove-watermark", upload.single("file"), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+
+  console.log(`[remove-watermark] Start: ${req.file.path}`);
+
+  try {
+    // Attempt best-effort removal via roundtrip
+    runPdf2Docx(req.file.path, (err, docxFile) => {
+      if (err) {
+        console.error("[remove-watermark] pdf2docx failed:", err.message);
+        return res.status(500).json({ error: "Failed to process PDF for removal." });
+      }
+
+      runLibreOffice("--convert-to pdf", docxFile, ".pdf", (err, outFile) => {
+        if (err) {
+          console.error("[remove-watermark] LibreOffice failed:", err.message);
+          return res.status(500).json({ error: "Failed to reconstruct PDF." });
+        }
+
+        res.setHeader("X-Removal-Status", "best-effort");
+        res.download(outFile, `cleaned.pdf`, () => {
+          scheduleCleanup(req.file.path);
+          scheduleCleanup(docxFile);
+          scheduleCleanup(outFile);
+        });
+      });
+    });
+  } catch (err) {
+    console.error("[remove-watermark] Global error:", err.message);
+    res.status(500).json({ error: err.message });
   }
 });
 

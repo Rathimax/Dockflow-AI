@@ -33,6 +33,27 @@ const toolCategories = [
         href: "/edit-pdf",
         icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 22v-6"/><path d="M9 19h6"/></svg>,
         color: "bg-emerald-50"
+      },
+      {
+        title: "PDF to PowerPoint",
+        description: "Convert PDF to editable PowerPoint slides.",
+        href: "/pdf-to-ppt",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 12h8"/><path d="M8 16h8"/><path d="M8 20h8"/></svg>,
+        color: "bg-orange-50"
+      },
+      {
+        title: "PowerPoint to PDF",
+        description: "Convert PowerPoint presentations to PDF.",
+        href: "/ppt-to-pdf",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18h.01"/><path d="M10 13c1 0 2 1 2 2v2"/><path d="M14 13c-1 0-2 1-2 2v2"/></svg>,
+        color: "bg-red-50"
+      },
+      {
+        title: "Photos to PDF",
+        description: "Convert multiple photos to a single PDF. Upload, arrange in any order, and download instantly.",
+        href: "/photos-to-pdf",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-600"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>,
+        color: "bg-yellow-50"
       }
     ]
   },
@@ -59,6 +80,27 @@ const toolCategories = [
         href: "/pdf-to-image",
         icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rose-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="2"/><path d="m20 17-1.086-1.086a2 2 0 0 0-2.828 0L12 20"/></svg>,
         color: "bg-rose-50"
+      },
+      {
+        title: "Delete PDF Pages",
+        description: "Remove unwanted pages from your PDF instantly. Preview all pages and select which ones to delete.",
+        href: "/delete-pdf-pages",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10 12l4 4"/><path d="M14 12l-4 4"/></svg>,
+        color: "bg-red-50"
+      },
+      {
+        title: "Add Watermark",
+        description: "Add text or image watermarks to your PDF. Customize opacity, position, rotation and more.",
+        href: "/add-watermark",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13l3 3 3-3"/></svg>,
+        color: "bg-blue-50"
+      },
+      {
+        title: "Remove Watermark",
+        description: "Remove watermarks from PDF files. Works best on text-based and transparent watermarks.",
+        href: "/remove-watermark",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 12l4 4"/><path d="M12 12l-4 4"/></svg>,
+        color: "bg-indigo-50"
       }
     ]
   },
@@ -161,7 +203,7 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 {category.tools.map((tool, index) => (
                   <ToolCard 
                     key={index}
