@@ -1,5 +1,5 @@
-# Use the official Node.js 18 image based on Debian
-FROM node:18-bullseye-slim
+# Use a newer Node.js 22 image to support dependencies like pdf-parse
+FROM node:22-bullseye-slim
 
 # Install LibreOffice and required fonts/dependencies
 # --no-install-recommends helps keep the image size down
