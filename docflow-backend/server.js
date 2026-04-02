@@ -33,7 +33,11 @@ app.use((req, res, next) => {
 
 // --- Health Check ---
 app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
+  res.json({ 
+    status: "ok", 
+    server: "Node.js (DocFlow Backend)",
+    timestamp: new Date().toISOString()
+  });
 });
 
 // --- Routes ---
