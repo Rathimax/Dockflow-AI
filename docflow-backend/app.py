@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 # --- Environment Variable Configuration ---
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 @app.route("/")
 def home():
@@ -16,7 +16,7 @@ def home():
 
 @app.route("/health")
 def health():
-    return jsonify({"status": "ok", "api_key_configured": bool(GOOGLE_API_KEY)})
+    return jsonify({"status": "ok", "api_key_configured": bool(GEMINI_API_KEY)})
 
 if __name__ == "__main__":
     # Standard Flask entry point
