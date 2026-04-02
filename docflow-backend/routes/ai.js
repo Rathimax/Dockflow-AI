@@ -6,7 +6,6 @@ const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const pdfParse = require("pdf-parse");
 const mammoth = require("mammoth");
 
 const { scheduleCleanup } = require("../utils/fileCleanup");
@@ -35,15 +34,19 @@ async function extractText(filePath, originalname) {
   
   if (ext === ".pdf") {
     try {
-      if (typeof pdfParse === "function") {
-        const data = await pdfParse(fileBuffer);
-        return data.text || data;
-      } else {
-        const parser = new pdfParse.PDFParse({ data: fileBuffer });
-        const data = await parser.getText();
-        await parser.destroy();
-        return data.text;
+      // Use the exact same pdfjs-dist loader as in edit-pdf to prevent worker mismatch
+      const pdfjsLib = require("pdfjs-dist/legacy/build/pdf.mjs");
+      const pdfBytes = new Uint8Array(fileBuffer);
+      const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+      const pdfDocument = await loadingTask.promise;
+      
+      let fullText = "";
+      for (let i = 1; i <= pdfDocument.numPages; i++) {
+        const page = await pdfDocument.getPage(i);
+        const textContent = await page.getTextContent();
+        fullText += textContent.items.map(item => item.str).join(" ") + "\n";
       }
+      return fullText;
     } catch (err) {
       throw new Error("Could not parse text from this PDF format. " + err.message);
     }
@@ -54,6 +57,7 @@ async function extractText(filePath, originalname) {
     throw new Error("Unsupported file type for AI processing. Use PDF or DOCX.");
   }
 }
+
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 1. AI Summarize
