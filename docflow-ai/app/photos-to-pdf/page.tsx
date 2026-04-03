@@ -508,7 +508,7 @@ export default function PhotosToPdfPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-8 pb-20 px-4">
+    <div className="min-h-screen pt-8 pb-20 px-4">
       <main className="max-w-6xl mx-auto">
         {/* Hero Header matching other tools */}
         <div className="text-center mt-8 md:mt-16 mb-12 md:mb-20">
