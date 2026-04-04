@@ -170,7 +170,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <BackgroundPaths title="" className="min-h-[calc(100vh-5rem)]">
-          <div className="py-12 md:py-32 relative z-10 container mx-auto px-6 md:px-4 max-w-6xl text-center flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
+          <div className="pt-10 md:pt-16 pb-20 md:pb-32 relative z-10 container mx-auto px-6 md:px-4 max-w-6xl text-center flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 text-primary dark:text-primary text-[10px] md:text-sm font-black mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
               ✨ Your Supercharged AI Document Workspace
             </div>
@@ -203,7 +203,7 @@ export default function Home() {
       </section>
 
       {/* Tools Section */}
-      <section id="tools" className="py-20 md:py-32 bg-background/50 dark:bg-muted/30 border-y border-divider relative">
+      <section id="tools" className="py-20 md:py-32 relative z-20 bg-background border-y border-divider">
         <div className="container mx-auto px-6 md:px-4 max-w-6xl">
           {toolCategories.map((category, catIndex) => (
             <div key={catIndex} className={catIndex > 0 ? "mt-20 md:mt-32" : ""}>
