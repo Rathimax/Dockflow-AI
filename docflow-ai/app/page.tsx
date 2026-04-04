@@ -64,14 +64,14 @@ const toolCategories = [
         title: "Compress PDF",
         description: "Reduce file size without losing quality.",
         href: "/compress-pdf",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 12v6"/><path d="M9 15l3-3 3 3"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-600"><path d="M4 14h16"/><path d="M4 10h16"/><path d="m12 6-3-3-3 3"/><path d="m12 18 3 3 3-3"/></svg>,
         color: "bg-green-50"
       },
       {
         title: "Merge PDF",
         description: "Combine multiple PDF files into one.",
         href: "/merge-pdf",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15h6"/><path d="M12 12v6"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-600"><path d="M12 3v11"/><path d="m9 6 3-3 3 3"/><path d="M4 21v-4a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v4"/></svg>,
         color: "bg-orange-50"
       },
       {
@@ -83,23 +83,37 @@ const toolCategories = [
       },
       {
         title: "Delete PDF Pages",
-        description: "Remove unwanted pages from your PDF instantly. Preview all pages and select which ones to delete.",
+        description: "Remove unwanted pages from your PDF instantly.",
         href: "/delete-pdf-pages",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10 12l4 4"/><path d="M14 12l-4 4"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-500"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>,
         color: "bg-red-50"
       },
       {
         title: "Add Watermark",
-        description: "Add text or image watermarks to your PDF. Customize opacity, position, rotation and more.",
+        description: "Add text or image watermarks to your PDF.",
         href: "/add-watermark",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13l3 3 3-3"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="12" r="3"/></svg>,
         color: "bg-blue-50"
       },
       {
         title: "Remove Watermark",
-        description: "Remove watermarks from PDF files. Works best on text-based and transparent watermarks.",
+        description: "Remove watermarks from PDF files.",
         href: "/remove-watermark",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M8 12l4 4"/><path d="M12 12l-4 4"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-600"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 10 6 6"/><path d="m15 10-6 6"/></svg>,
+        color: "bg-indigo-50"
+      },
+      {
+        title: "Rotate PDF",
+        description: "Rotate one or all pages in your PDF.",
+        href: "/edit-pdf",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-amber-600"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>,
+        color: "bg-amber-50"
+      },
+      {
+        title: "Reorder Pages",
+        description: "Rearrange pages in your PDF with drag-and-drop.",
+        href: "/delete-pdf-pages",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-500"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>,
         color: "bg-indigo-50"
       }
     ]
@@ -111,21 +125,21 @@ const toolCategories = [
         title: "AI Summarize",
         description: "Get key insights from any document with AI.",
         href: "/ai-summarize",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-600"><path d="M21 15V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/><path d="M15 19l2 2 4-4"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-600"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h6"/></svg>,
         color: "bg-yellow-50"
       },
       {
         title: "Chat with PDF",
-        description: "Ask questions and chat with your PDF documents.",
+        description: "Ask questions and chat with your documents.",
         href: "/chat-with-pdf",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M12 7v5"/><path d="M12 16h.01"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-600"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>,
         color: "bg-cyan-50"
       },
       {
         title: "Translate PDF",
         description: "Instantly translate documents into over 10 languages.",
         href: "/translate-pdf",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>,
         color: "bg-emerald-50"
       }
     ]
@@ -155,8 +169,8 @@ export default function Home() {
     <div className="font-sans transition-colors duration-300 overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <BackgroundPaths title="">
-          <div className="pt-16 pb-24 md:pt-24 md:pb-40 relative z-10 container mx-auto px-6 md:px-4 max-w-6xl text-center">
+        <BackgroundPaths title="" className="min-h-[calc(100vh-5rem)]">
+          <div className="py-12 md:py-32 relative z-10 container mx-auto px-6 md:px-4 max-w-6xl text-center flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 text-primary dark:text-primary text-[10px] md:text-sm font-black mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
               ✨ Your Supercharged AI Document Workspace
             </div>
@@ -170,16 +184,16 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 animate-in fade-in slide-in-from-bottom-16 duration-700 delay-300">
-                <Link 
+              <Link 
                 href="#tools"
-                className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-primary text-white rounded-xl md:rounded-2xl font-black text-base md:text-lg transition-all hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 active:scale-95 flex items-center justify-center gap-3 shadow-xl shadow-primary/20"
+                className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-primary text-white rounded-xl md:rounded-2xl font-black text-sm md:text-lg transition-all hover:scale-105 hover:shadow-2xl hover:shadow-primary/30 active:scale-95 flex items-center justify-center gap-3 shadow-xl shadow-primary/20"
               >
                 Browse All Tools
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </Link>
               <Link 
                 href="/about"
-                className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-muted text-foreground border border-divider rounded-xl md:rounded-2xl font-black text-base md:text-lg transition-all hover:bg-card hover:border-primary/20 hover:scale-105 active:scale-95 flex items-center justify-center"
+                className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-muted text-foreground border border-divider rounded-xl md:rounded-2xl font-black text-sm md:text-lg transition-all hover:bg-card hover:border-primary/20 hover:scale-105 active:scale-95 flex items-center justify-center"
               >
                 Learn More
               </Link>

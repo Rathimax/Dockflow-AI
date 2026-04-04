@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 function LightFloatingPaths({ position }: { position: number }) {
     const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -90,13 +91,15 @@ function DarkFloatingPaths({ position }: { position: number }) {
 
 export function BackgroundPaths({
     title = "Background Paths",
-    children
+    children,
+    className
 }: {
     title?: string;
     children?: React.ReactNode;
+    className?: string;
 }) {
     return (
-        <div className="relative w-full flex items-center justify-center overflow-hidden bg-background">
+        <div className={cn("relative w-full flex items-center justify-center overflow-hidden bg-background min-h-screen", className)}>
             {/* Light mode background lines — hidden in dark mode */}
             <div className="absolute inset-0 dark:hidden">
                 <LightFloatingPaths position={1} />
