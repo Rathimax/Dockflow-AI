@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import ToolCard from "@/components/ToolCard";
 import Link from "next/link";
 import { BackgroundPaths } from "@/components/ui/background-paths";
+import LearnMoreModal from "@/components/LearnMoreModal";
 
 const toolCategories = [
   {
@@ -165,6 +169,8 @@ const features = [
 ];
 
 export default function Home() {
+  const [isLearnMoreOpen, setIsLearnMoreOpen] = useState(false);
+
   return (
     <div className="font-sans transition-colors duration-300 overflow-x-hidden">
       {/* Hero Section */}
@@ -191,19 +197,19 @@ export default function Home() {
                 Browse All Tools
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
               </Link>
-              <Link 
-                href="/about"
-                className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-muted text-foreground border border-divider rounded-xl md:rounded-2xl font-black text-sm md:text-lg transition-all hover:bg-card hover:border-primary/20 hover:scale-105 active:scale-95 flex items-center justify-center"
+              <button 
+                onClick={() => setIsLearnMoreOpen(true)}
+                className="w-full sm:w-auto px-6 md:px-10 py-3 md:py-5 bg-muted text-foreground border border-divider rounded-xl md:rounded-2xl font-black text-sm md:text-lg transition-all hover:bg-card hover:border-primary/20 hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer"
               >
                 Learn More
-              </Link>
+              </button>
             </div>
           </div>
         </BackgroundPaths>
       </section>
 
       {/* Tools Section */}
-      <section id="tools" className="py-20 md:py-32 relative z-20 bg-background border-y border-divider">
+      <section id="tools" className="py-20 md:py-32 relative z-20 bg-background border-b border-divider">
         <div className="container mx-auto px-6 md:px-4 max-w-6xl">
           {toolCategories.map((category, catIndex) => (
             <div key={catIndex} className={catIndex > 0 ? "mt-20 md:mt-32" : ""}>
@@ -235,18 +241,18 @@ export default function Home() {
       </section>
 
       {/* Why DocFlow AI? Section */}
-      <section className="py-20 md:py-32 bg-background relative overflow-hidden">
+      <section className="py-16 md:py-24 bg-background relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10"></div>
         <div className="container mx-auto px-6 md:px-4 max-w-6xl">
-          <div className="mb-16 md:mb-20 text-center">
-            <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-4 duration-1000">Why DocFlow AI?</h2>
-            <p className="text-foreground/40 font-bold text-sm md:text-xl uppercase tracking-widest animate-in fade-in delay-300">The world's first truly free document suite.</p>
+          <div className="mb-12 md:mb-16 text-center">
+            <h2 className="text-3xl md:text-5xl font-black mb-4 md:mb-6 tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-4 duration-1000">Why DocFlow AI?</h2>
+            <p className="text-foreground/40 font-bold text-[10px] md:text-lg uppercase tracking-widest animate-in fade-in delay-300 px-4">TRULY FREE. NO RATE LIMITS. NO SIGNUP.</p>
           </div>
           
-          <div className="flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-12">
+          <div className="flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-8">
             {features.map((feature, i) => (
-              <div key={i} className="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-5 md:p-12 bg-card border border-divider rounded-2xl md:rounded-[3rem] transition-all hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2 hover:border-primary/20 group gap-5 md:gap-0 animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${(i + 1) * 150}ms` }}>
-                <div className="h-14 w-14 md:h-20 md:w-20 shrink-0 flex items-center justify-center bg-muted border-2 border-divider rounded-2xl md:rounded-[1.5rem] text-primary md:mb-8 shadow-sm transition-transform group-hover:scale-110 group-hover:rotate-6">
+              <div key={i} className="flex flex-row md:flex-col items-start md:items-center text-left md:text-center p-6 md:p-8 bg-card border border-divider rounded-2xl md:rounded-[2rem] transition-all hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2 hover:border-primary/20 group gap-5 md:gap-0 animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${(i + 1) * 150}ms` }}>
+                <div className="h-14 w-14 md:h-16 md:w-16 shrink-0 flex items-center justify-center bg-muted border-2 border-divider rounded-2xl md:rounded-[1.25rem] text-primary md:mb-6 shadow-sm transition-transform group-hover:scale-110 group-hover:rotate-6">
                   <div className="scale-75 md:scale-100">{feature.icon}</div>
                 </div>
                 <div>
@@ -279,6 +285,7 @@ export default function Home() {
         </div>
       </section>
 
+      <LearnMoreModal isOpen={isLearnMoreOpen} onClose={() => setIsLearnMoreOpen(false)} />
     </div>
   );
 }

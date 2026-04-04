@@ -14,7 +14,10 @@ function LightFloatingPaths({ position }: { position: number }) {
     }));
 
     return (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none" style={{ 
+            maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
+        }}>
             <svg
                 className="w-full h-full overflow-visible"
                 viewBox="0 0 696 316"
@@ -57,7 +60,10 @@ function DarkFloatingPaths({ position }: { position: number }) {
     }));
 
     return (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none" style={{ 
+            maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
+        }}>
             <svg
                 className="w-full h-full overflow-visible"
                 viewBox="0 0 696 316"
