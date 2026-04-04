@@ -282,8 +282,6 @@ export default function UploadBox({
     return (
       <div className="w-full max-w-3xl mx-auto animate-in fade-in zoom-in-95 duration-500">
         <div className="relative p-5 md:p-10 bg-card/70 backdrop-blur-2xl border border-divider rounded-2xl md:rounded-[3rem] shadow-2xl shadow-primary/5 overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
 
           <div className="mb-8 md:mb-10 text-center">
             <h3 className="text-lg md:text-2xl font-black tracking-tight mb-1 text-foreground">Ready to Process</h3>
@@ -382,7 +380,7 @@ export default function UploadBox({
       )}
     >
       <div className={cn(
-        "absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-emerald-500/5 transition-opacity duration-700",
+        "absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 transition-opacity duration-700",
         isDragging ? "opacity-100" : "opacity-0"
       )}></div>
 
