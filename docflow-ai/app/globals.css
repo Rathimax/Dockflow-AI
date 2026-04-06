@@ -183,7 +183,6 @@
 
 @utility liquid-glass {
   position: relative;
-  overflow: hidden;
   -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(105%);
   backdrop-filter: blur(28px) saturate(220%) brightness(105%);
   background: linear-gradient(
@@ -198,7 +197,16 @@
     inset 0 0 40px 0 rgba(255, 255, 255, 0.05);
 }
 
-.liquid-glass::before {
+.glass-shimmer-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glass-shimmer-container::before {
   content: '';
   position: absolute;
   top: 0;
@@ -235,7 +243,7 @@
     inset 0 0 60px 0 rgba(255, 255, 255, 0.02);
 }
 
-.dark .liquid-glass::before {
+.dark .glass-shimmer-container::before {
   background: linear-gradient(
     90deg,
     transparent,

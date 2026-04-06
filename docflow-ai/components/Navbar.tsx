@@ -43,6 +43,7 @@ export default function Navbar() {
           isScrolled ? "liquid-glass" : "bg-background/80 backdrop-blur-md border-b border-divider"
         )}
       >
+        {isScrolled && <div className="glass-shimmer-container" />}
         <div className={cn(
           "container mx-auto flex items-center justify-between px-4 sm:px-8 transition-all duration-300 h-full"
         )}>
