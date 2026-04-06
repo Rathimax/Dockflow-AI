@@ -209,7 +209,7 @@ export default function Home() {
       </section>
 
       {/* Tools Section */}
-      <section id="tools" className="py-20 md:py-32 relative z-20 bg-background border-b border-divider">
+      <section id="tools" className="py-20 md:py-32 relative z-20 bg-background">
         <div className="container mx-auto px-6 md:px-4 max-w-6xl">
           {toolCategories.map((category, catIndex) => (
             <div key={catIndex} className={catIndex > 0 ? "mt-20 md:mt-32" : ""}>
@@ -269,8 +269,8 @@ export default function Home() {
       </section>
 
       {/* Final Call to Action */}
-      <section className="py-20 md:py-32 bg-background border-y border-divider text-foreground overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--color-primary),_transparent_70%)] opacity-20 dark:opacity-10"></div>
+      <section className="py-20 md:py-32 bg-background text-foreground overflow-hidden relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--color-primary)_0%,_transparent_70%)] opacity-35 dark:opacity-20 pointer-events-none blur-[40px]"></div>
         <div className="container mx-auto px-6 md:px-4 max-w-4xl text-center relative z-10">
           <h2 className="text-2xl md:text-6xl font-black mb-6 md:mb-10 leading-tight tracking-tighter animate-in fade-in slide-in-from-bottom-4 duration-500">
             Ready to supercharge <br /> your documents?
