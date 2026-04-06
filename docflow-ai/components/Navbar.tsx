@@ -31,13 +31,6 @@ export default function Navbar() {
           top: isScrolled ? "1rem" : "0px",
           borderRadius: isScrolled ? "2rem" : "0px",
           height: isScrolled ? "4.5rem" : "5rem",
-          backgroundColor: isScrolled 
-            ? (theme === "dark" ? "rgba(10, 10, 10, 0.85)" : "rgba(255, 255, 255, 0.85)")
-            : (theme === "dark" ? "rgba(10, 10, 10, 0.8)" : "rgba(255, 255, 255, 0.8)"),
-          borderWidth: isScrolled ? "1px" : "0px",
-          borderBottomWidth: "1px",
-          borderColor: "var(--divider)",
-          boxShadow: isScrolled ? "0 25px 50px -12px rgba(0, 0, 0, 0.25)" : "none",
         }}
         transition={{ 
           type: "spring", 
@@ -46,8 +39,8 @@ export default function Navbar() {
           mass: 1
         }}
         className={cn(
-          "fixed left-1/2 -translate-x-1/2 z-50 backdrop-blur-md transition-colors duration-300",
-          !isScrolled && "border-b border-divider"
+          "fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500",
+          isScrolled ? "liquid-glass" : "bg-background/80 backdrop-blur-md border-b border-divider"
         )}
       >
         <div className={cn(
@@ -78,10 +71,10 @@ export default function Navbar() {
                 AI Features
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </button>
-              <div className="absolute top-full left-0 w-56 bg-card border border-divider shadow-2xl rounded-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-4 group-hover:translate-y-1">
-                <Link onClick={() => setIsOpen(false)} href="/ai-summarize" className="block px-6 py-2.5 text-sm font-bold text-foreground hover:bg-muted transition-colors">AI Summarizer</Link>
-                <Link onClick={() => setIsOpen(false)} href="/chat-with-pdf" className="block px-6 py-2.5 text-sm font-bold text-foreground hover:bg-muted transition-colors">Chat with PDF</Link>
-                <Link onClick={() => setIsOpen(false)} href="/translate-pdf" className="block px-6 py-2.5 text-sm font-bold text-foreground hover:bg-muted transition-colors">Translate PDF</Link>
+              <div className="absolute top-full left-0 w-64 bg-card/95 backdrop-blur-xl border border-divider shadow-2xl rounded-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all translate-y-4 group-hover:translate-y-1">
+                <Link onClick={() => setIsOpen(false)} href="/ai-summarize" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">AI Summarizer</Link>
+                <Link onClick={() => setIsOpen(false)} href="/chat-with-pdf" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">Chat with PDF</Link>
+                <Link onClick={() => setIsOpen(false)} href="/translate-pdf" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">Translate PDF</Link>
               </div>
             </div>
             
