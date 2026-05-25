@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UploadBox from "@/components/UploadBox";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { saveSession, loadSession, clearSession } from "@/lib/idbSession";
 
 interface Message {
   role: "user" | "ai";
@@ -15,6 +16,28 @@ export default function ChatWithPDFPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    loadSession('chat-with-pdf').then((data: any) => {
+      if (data && data.timestamp > Date.now() - 24 * 60 * 60 * 1000) {
+        if (data.extractedText) setExtractedText(data.extractedText);
+        if (data.messages) setMessages(data.messages);
+      }
+    }).catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    if (extractedText) {
+      const timer = setTimeout(() => {
+        saveSession('chat-with-pdf', {
+          extractedText,
+          messages,
+          timestamp: Date.now()
+        }).catch(console.error);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [extractedText, messages]);
 
   const handleExtractSuccess = (data: any) => {
     if (data.text) {
@@ -69,6 +92,7 @@ export default function ChatWithPDFPage() {
           accept=".pdf,.docx" 
           responseType="json"
           onSuccess={handleExtractSuccess}
+          persistSession={false}
         />
       ) : (
         <div className="bg-background border border-divider rounded-[2rem] md:rounded-[2.5rem] shadow-2xl shadow-primary/5 overflow-hidden flex flex-col h-[500px] md:h-[650px] animate-in slide-in-from-bottom-4 duration-500">
@@ -81,10 +105,15 @@ export default function ChatWithPDFPage() {
                </div>
             </div>
             <button 
-              onClick={() => { setExtractedText(null); setMessages([]); }}
-              className="text-[10px] md:text-xs font-black uppercase tracking-widest text-foreground/40 hover:text-rose-500 transition-colors"
+              onClick={() => { 
+                clearSession('chat-with-pdf').then(() => {
+                  window.location.reload();
+                });
+              }}
+              className="text-[10px] md:text-xs font-black uppercase tracking-widest text-foreground/40 hover:text-rose-500 transition-colors flex items-center gap-1.5"
             >
-              Reset
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Start Over
             </button>
           </div>
           

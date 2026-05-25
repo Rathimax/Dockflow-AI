@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UploadBox from "@/components/UploadBox";
 import CustomSelect from "@/components/ui/CustomSelect";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Download, FileText, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { saveSession, loadSession, clearSession } from "@/lib/idbSession";
 
 export default function TranslatePDFPage() {
   const [targetLanguage, setTargetLanguage] = useState("Spanish");
@@ -13,6 +14,29 @@ export default function TranslatePDFPage() {
   const [translatedText, setTranslatedText] = useState<string | null>(null);
   const [customFileName, setCustomFileName] = useState("");
   const [showReview, setShowReview] = useState(false);
+
+  useEffect(() => {
+    loadSession('translate-pdf').then((data: any) => {
+      if (data && data.timestamp > Date.now() - 24 * 60 * 60 * 1000) {
+        if (data.targetLanguage) setTargetLanguage(data.targetLanguage);
+        if (data.translatedText) setTranslatedText(data.translatedText);
+        if (data.customFileName) setCustomFileName(data.customFileName);
+        if (data.showReview) setShowReview(data.showReview);
+      }
+    }).catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    if (showReview && translatedText) {
+      saveSession('translate-pdf', {
+        targetLanguage,
+        translatedText,
+        customFileName,
+        showReview,
+        timestamp: Date.now()
+      }).catch(console.error);
+    }
+  }, [showReview, translatedText, customFileName, targetLanguage]);
 
   const languages = [
     "Spanish", "French", "German", "Chinese", "Japanese", 
@@ -45,6 +69,7 @@ export default function TranslatePDFPage() {
     setShowReview(false);
     setTranslatedText(null);
     setIsTranslating(false);
+    clearSession('translate-pdf').catch(console.error);
   };
 
   if (showReview && translatedText) {
@@ -163,6 +188,7 @@ export default function TranslatePDFPage() {
           responseType="json"
           additionalData={{ targetLanguage }}
           onSuccess={handleSuccess}
+          persistSession={false}
         />
       </div>
 

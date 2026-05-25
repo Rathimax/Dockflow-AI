@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import axios from "axios";
+import { saveSession, loadSession, clearSession } from "@/lib/idbSession";
 
 interface UploadBoxProps {
   endpoint: string;
@@ -14,6 +15,7 @@ interface UploadBoxProps {
   additionalData?: Record<string, string>;
   buttonLabel?: string;
   loadingLabel?: string;
+  persistSession?: boolean;
 }
 
 export default function UploadBox({ 
@@ -25,7 +27,8 @@ export default function UploadBox({
   onFileSelect,
   additionalData = {},
   buttonLabel = "Convert Now",
-  loadingLabel = "Processing..."
+  loadingLabel = "Processing...",
+  persistSession = true
 }: UploadBoxProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -36,6 +39,25 @@ export default function UploadBox({
   const [convertedBlobUrl, setConvertedBlobUrl] = useState<string | null>(null);
   const [customFileName, setCustomFileName] = useState("");
   const [fileExtension, setFileExtension] = useState("");
+
+  useEffect(() => {
+    if (!persistSession) return;
+    loadSession(endpoint).then((data: any) => {
+      if (data && data.timestamp > Date.now() - 24 * 60 * 60 * 1000) {
+        if (data.selectedFiles) setSelectedFiles(data.selectedFiles);
+        if (data.isConverted) setIsConverted(data.isConverted);
+        if (data.statusMessage) setStatusMessage(data.statusMessage);
+        if (data.showReview) setShowReview(data.showReview);
+        if (data.customFileName) setCustomFileName(data.customFileName);
+        if (data.fileExtension) setFileExtension(data.fileExtension);
+        if (data.blob) {
+          setConvertedBlobUrl(window.URL.createObjectURL(data.blob));
+        }
+        // If it was json response type, the parent might need the data again, 
+        // but UploadBox doesn't store the JSON. Parent should handle its own restore.
+      }
+    }).catch(console.error);
+  }, [endpoint, persistSession]);
 
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -99,6 +121,14 @@ export default function UploadBox({
       if (responseType === "json") {
         setIsConverted(true);
         setStatusMessage("Analysis Complete!");
+        if (persistSession) {
+          saveSession(endpoint, {
+            selectedFiles,
+            isConverted: true,
+            statusMessage: "Analysis Complete!",
+            timestamp: Date.now()
+          }).catch(console.error);
+        }
         if (onSuccess) onSuccess(response.data);
       } else {
         const contentDisposition = response.headers["content-disposition"];
@@ -127,6 +157,20 @@ export default function UploadBox({
 
         setIsConverted(true);
         setStatusMessage("Process Complete!");
+
+        if (persistSession) {
+          saveSession(endpoint, {
+            selectedFiles,
+            isConverted: true,
+            statusMessage: "Process Complete!",
+            showReview: true,
+            customFileName: base,
+            fileExtension: ext,
+            blob: blob,
+            timestamp: Date.now()
+          }).catch(console.error);
+        }
+
         if (onSuccess) onSuccess(response.data);
       }
     } catch (error) {
@@ -172,6 +216,9 @@ export default function UploadBox({
     setIsConverted(false);
     setIsConverting(false);
     setStatusMessage(null);
+    if (persistSession) {
+      clearSession(endpoint).catch(console.error);
+    }
   };
 
   if (showReview && convertedBlobUrl) {
@@ -373,7 +420,7 @@ export default function UploadBox({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "group relative flex flex-col items-center justify-center w-full min-h-[300px] md:min-h-[450px] p-6 md:p-12 border-2 border-dashed rounded-[2rem] md:rounded-[4rem] transition-all duration-700 overflow-hidden",
+        "group relative flex flex-col items-center justify-center w-full min-h-[250px] md:min-h-[300px] p-6 md:py-8 md:px-12 border-2 border-dashed rounded-[2rem] md:rounded-[3rem] transition-all duration-700 overflow-hidden",
         isDragging 
           ? "border-primary bg-primary/5 scale-[0.99] shadow-inner" 
           : "border-divider bg-card shadow-2xl shadow-black/5 hover:border-primary/20 hover:shadow-primary/5"
@@ -386,23 +433,23 @@ export default function UploadBox({
 
       <div 
         onClick={() => document.getElementById("fileInput")?.click()}
-        className="relative z-10 flex h-16 w-16 md:h-24 md:w-24 items-center justify-center rounded-2xl md:rounded-[2rem] bg-primary text-white shadow-2xl shadow-primary/30 mb-5 md:mb-8 transition-all hover:scale-110 active:scale-95 cursor-pointer group-hover:rotate-3"
+        className="relative z-10 flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-2xl md:rounded-[1.5rem] bg-primary text-white shadow-2xl shadow-primary/30 mb-4 md:mb-6 transition-all hover:scale-110 active:scale-95 cursor-pointer group-hover:rotate-3"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="md:w-10 md:h-10"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="md:w-8 md:h-8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
       </div>
       
-      <div className="relative z-10 text-center max-w-sm mb-8 md:mb-12 px-4">
-        <h3 className="text-xl md:text-3xl font-black mb-2 md:mb-4 tracking-tight text-foreground">
+      <div className="relative z-10 text-center max-w-sm mb-6 md:mb-8 px-4">
+        <h3 className="text-xl md:text-2xl font-black mb-2 md:mb-3 tracking-tight text-foreground">
           {isDragging ? "Drop to upload" : "Select or drag files"}
         </h3>
-        <p className="text-foreground/40 font-bold text-xs md:text-lg mb-8 md:mb-12 max-w-md mx-auto leading-relaxed">
+        <p className="text-foreground/40 font-bold text-xs md:text-base max-w-md mx-auto leading-relaxed">
           Support for PDF, Word, Excel, and Images. <br className="hidden md:block" />
           Max file size 50MB.
         </p>
       </div>
       
       <label className="relative z-10 cursor-pointer w-full px-8 md:px-0 md:w-auto">
-        <span className="flex items-center justify-center px-8 md:px-12 py-3.5 md:py-5 bg-foreground text-background rounded-xl md:rounded-2xl font-black text-sm md:text-lg shadow-xl shadow-black/20 hover:opacity-90 transition-all active:scale-95">
+        <span className="flex items-center justify-center px-8 md:px-12 py-3.5 md:py-4 bg-foreground text-background rounded-xl md:rounded-2xl font-black text-sm md:text-base shadow-xl shadow-black/20 hover:opacity-90 transition-all active:scale-95">
           Browse Files
         </span>
         <input 
@@ -415,7 +462,7 @@ export default function UploadBox({
         />
       </label>
       
-      <div className="mt-8 md:mt-10 flex items-center gap-3 py-2 px-5 md:px-6 bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-full shadow-sm">
+      <div className="mt-6 md:mt-8 flex items-center gap-3 py-2 px-5 md:px-6 bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-800 rounded-full shadow-sm">
          <span className="h-1.5 w-1.5 md:h-2 md:w-2 bg-emerald-500 rounded-full animate-pulse"></span>
          <p className="text-[9px] md:text-[10px] text-gray-400 dark:text-gray-500 font-black uppercase tracking-widest">
             Accepted: {accept === "*" ? "All Formats" : accept.replace(/\./g, "").toUpperCase()}

@@ -6,6 +6,7 @@ const path = require("path");
 const convertRoutes = require("./routes/convert");
 const aiRoutes = require("./routes/ai");
 const pdfRoutes = require("./routes/pdf");
+const studyRoutes = require("./routes/study");
 
 const app = express();
 const PORT = process.env.PORT || 5005;
@@ -44,6 +45,7 @@ app.get("/health", (req, res) => {
 app.use("/api/convert", convertRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/pdf", pdfRoutes);
+app.use("/api/ai/study", studyRoutes);
 
 // --- 404 Handler ---
 app.use((req, res) => {

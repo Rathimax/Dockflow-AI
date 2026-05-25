@@ -76,6 +76,7 @@ export default function Navbar() {
                 <Link onClick={() => setIsOpen(false)} href="/ai-summarize" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">AI Summarizer</Link>
                 <Link onClick={() => setIsOpen(false)} href="/chat-with-pdf" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">Chat with PDF</Link>
                 <Link onClick={() => setIsOpen(false)} href="/translate-pdf" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">Translate PDF</Link>
+                <Link onClick={() => setIsOpen(false)} href="/study-tool" className="block px-6 py-2.5 text-sm font-black text-foreground hover:bg-primary/10 transition-colors">AI Study Tool</Link>
               </div>
             </div>
             
@@ -147,6 +148,7 @@ export default function Navbar() {
               <Link onClick={() => setIsOpen(false)} href="/ai-summarize" className="text-xl font-bold text-gray-600 dark:text-gray-400 hover:text-primary transition-colors tracking-tight">AI Summarizer</Link>
               <Link onClick={() => setIsOpen(false)} href="/chat-with-pdf" className="text-xl font-bold text-gray-600 dark:text-gray-400 hover:text-primary transition-colors tracking-tight">Chat with PDF</Link>
               <Link onClick={() => setIsOpen(false)} href="/translate-pdf" className="text-xl font-bold text-gray-600 dark:text-gray-400 hover:text-primary transition-colors tracking-tight">Translate PDF</Link>
+              <Link onClick={() => setIsOpen(false)} href="/study-tool" className="text-xl font-bold text-gray-600 dark:text-gray-400 hover:text-primary transition-colors tracking-tight">AI Study Tool</Link>
             </div>
 
             <div className="pt-8 border-t border-gray-100 dark:border-divider">

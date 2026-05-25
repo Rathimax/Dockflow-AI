@@ -10,6 +10,7 @@ const mammoth = require("mammoth");
 
 const { scheduleCleanup } = require("../utils/fileCleanup");
 const { rateLimitAI } = require("../utils/rateLimit");
+const { extractText } = require("../utils/textExtractor");
 
 // --- Initialize Gemini API ---
 const apiKey = process.env.GEMINI_API_KEY;
@@ -26,37 +27,6 @@ const storage = multer.diskStorage({
     cb(null, `${uuidv4()}${path.extname(file.originalname)}`),
 });
 const upload = multer({ storage });
-
-// --- Helper: Extract text from PDF or DOCX ---
-async function extractText(filePath, originalname) {
-  const ext = path.extname(originalname).toLowerCase();
-  const fileBuffer = fs.readFileSync(filePath);
-  
-  if (ext === ".pdf") {
-    try {
-      // Use the exact same pdfjs-dist loader as in edit-pdf to prevent worker mismatch
-      const pdfjsLib = require("pdfjs-dist/legacy/build/pdf.mjs");
-      const pdfBytes = new Uint8Array(fileBuffer);
-      const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
-      const pdfDocument = await loadingTask.promise;
-      
-      let fullText = "";
-      for (let i = 1; i <= pdfDocument.numPages; i++) {
-        const page = await pdfDocument.getPage(i);
-        const textContent = await page.getTextContent();
-        fullText += textContent.items.map(item => item.str).join(" ") + "\n";
-      }
-      return fullText;
-    } catch (err) {
-      throw new Error("Could not parse text from this PDF format. " + err.message);
-    }
-  } else if (ext === ".docx") {
-    const result = await mammoth.extractRawText({ buffer: fileBuffer });
-    return result.value;
-  } else {
-    throw new Error("Unsupported file type for AI processing. Use PDF or DOCX.");
-  }
-}
 
 
 // ─────────────────────────────────────────────────────────────────────────────

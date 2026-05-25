@@ -5,6 +5,7 @@ import ToolCard from "@/components/ToolCard";
 import Link from "next/link";
 import { BackgroundPaths } from "@/components/ui/background-paths";
 import LearnMoreModal from "@/components/LearnMoreModal";
+import { Sparkles } from "lucide-react";
 
 const toolCategories = [
   {
@@ -32,11 +33,11 @@ const toolCategories = [
         color: "bg-purple-50"
       },
       {
-        title: "Edit PDF",
-        description: "Add text, draw, highlight, and visually edit your PDF.",
-        href: "/edit-pdf",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 22v-6"/><path d="M9 19h6"/></svg>,
-        color: "bg-emerald-50"
+        title: "PDF to Image",
+        description: "Export high-quality images from your PDF pages.",
+        href: "/pdf-to-image",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rose-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="2"/><path d="m20 17-1.086-1.086a2 2 0 0 0-2.828 0L12 20"/></svg>,
+        color: "bg-rose-50"
       },
       {
         title: "PDF to PowerPoint",
@@ -79,11 +80,11 @@ const toolCategories = [
         color: "bg-orange-50"
       },
       {
-        title: "PDF to Image",
-        description: "Export high-quality images from your PDF pages.",
-        href: "/pdf-to-image",
-        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-rose-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="2"/><path d="m20 17-1.086-1.086a2 2 0 0 0-2.828 0L12 20"/></svg>,
-        color: "bg-rose-50"
+        title: "Edit PDF",
+        description: "Add text, draw, highlight, and visually edit your PDF.",
+        href: "/edit-pdf",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 22v-6"/><path d="M9 19h6"/></svg>,
+        color: "bg-emerald-50"
       },
       {
         title: "Delete PDF Pages",
@@ -145,6 +146,13 @@ const toolCategories = [
         href: "/translate-pdf",
         icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-600"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>,
         color: "bg-emerald-50"
+      },
+      {
+        title: "AI Study Tool",
+        description: "Generate exam-ready notes, summaries & practice questions from any PDF.",
+        href: "/study-tool",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal-600"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+        color: "bg-teal-50"
       }
     ]
   }
@@ -177,9 +185,10 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <BackgroundPaths title="" className="min-h-[calc(100vh-5rem)]">
           <div className="pt-10 md:pt-16 pb-20 md:pb-32 relative z-10 container mx-auto px-6 md:px-4 max-w-6xl text-center flex flex-col items-center justify-center min-h-[calc(100vh-5rem)]">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 text-primary dark:text-primary text-[10px] md:text-sm font-black mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-              ✨ Your Supercharged AI Document Workspace
-            </div>
+            <Link href="/study-tool" className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30 text-primary dark:text-primary text-[10px] md:text-sm font-black mb-6 md:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors cursor-pointer">
+              <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" />
+              ACE YOUR EXAM WITH DOCFLOW AI STUDY TOOL
+            </Link>
             <h1 className="text-[2.25rem] sm:text-6xl md:text-8xl font-black mb-6 md:mb-8 tracking-tighter leading-[0.95] text-foreground dark:text-white animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
               Document Intelligence <br className="hidden md:block" />
               <span className="text-primary tracking-tight">Evolved.</span>
